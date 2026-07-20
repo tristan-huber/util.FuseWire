@@ -4,6 +4,12 @@
   "y": 0,
   "uniqueID": "id-42",
   "name": "util.FuseWire",
+  "ioValues": [
+    {
+      "name": "wires",
+      "ioValue": "__GEOMETRY_INPUT__"
+    }
+  ],
   "topLevel": true,
   "allAtoms": [
     {
@@ -17,9 +23,43 @@
           "ioValue": "__GEOMETRY_INPUT__"
         }
       ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.4290364583333333,
+      "y": 0.5228571428571429,
+      "uniqueID": "id-45",
+      "ioValues": [
+        {
+          "name": "shape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "// as edges\nfunction run(\n  shape: Assembly\n) {\n  const edges = []\n  shape.onLeafs((leaf) => {\n    if (leaf.is3D() || leaf.geometry instanceof replicad.Wire) {\n      edges.push(...leaf.geometry.edges)\n    } else {\n      return undefined\n    }\n    return leaf;\n  })\n  return replicad.assembleWire(edges);\n}\n",
+      "compiledCode": "\"use strict\";\n// as edges\nfunction run(shape) {\n    const edges = [];\n    shape.onLeafs((leaf) => {\n        if (leaf.is3D() || leaf.geometry instanceof replicad.Wire) {\n            edges.push(...leaf.geometry.edges);\n        }\n        else {\n            return undefined;\n        }\n        return leaf;\n    });\n    return replicad.assembleWire(edges);\n}\n"
+    },
+    {
+      "atomType": "Input",
+      "x": 0.0231,
+      "y": 0.40571428571428575,
+      "uniqueID": "id-55",
+      "name": "wires",
+      "type": "geometry"
     }
   ],
-  "allConnectors": [],
+  "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-45",
+      "ap2ID": "id-43"
+    },
+    {
+      "ap2Name": "shape",
+      "ap1ID": "id-55",
+      "ap2ID": "id-45"
+    }
+  ],
   "unitsKey": "Unitless",
   "fileTypeVersion": 1,
   "filetypeVersion": 1
